@@ -21,21 +21,74 @@ Codepilot.el provides AI-based code completion for emacs in a similar way to [co
 
 ### Example configuration
 
+<details>
+<summary><b>straight.el</b></summary>
+
 ```elisp
 (use-package codepilot
   :straight (:host github :repo "ludvb/codepilot.el" :files ("*.el") )
   :hook ((prog-mode . codepilot-mode)
-         (text-mode . codepilot-mode)))
-(add-hook 'codepilot-mode-hook
-  (lambda ()
-     (when codepilot-mode
-       (define-key evil-insert-state-map (kbd "M-j") 'codepilot-accept-line)
-       (define-key evil-insert-state-map (kbd "M-l") 'codepilot-accept-char)
-       (define-key evil-insert-state-map (kbd "M-w") 'codepilot-accept-word)
-       (define-key evil-insert-state-map (kbd "M-<return>") 'codepilot-accept-all)
-       (define-key evil-insert-state-map (kbd "M-J") 'codepilot-complete-next)
-       (define-key evil-insert-state-map (kbd "M-K") 'codepilot-complete-previous))))
+         (text-mode . codepilot-mode))
+
+  :bind (:map evil-insert-state-map
+              ("M-j" . 'codepilot-accept-line)
+              ("M-l" . 'codepilot-accept-char)
+              ("M-w" . 'codepilot-accept-word)
+              ("M-<return>" . 'codepilot-accept-all)
+              ("M-J" . 'codepilot-complete-next)
+              ("M-K" . 'codepilot-complete-previous))
+
+  :config
+  ;; For llama.cpp backend:
+  (require 'codepilot-llamacpp)
+  (setq codepilot-backend 'llamacpp)
+
+  ;; For Ollama backend:
+  (require 'codepilot-ollama)
+  (require 'codepilot-ollama-server)
+  (setq codepilot-backend 'ollama)
+  (codepilot-ollama-start))
 ```
+
+</details>
+
+<details>
+<summary><b>Doom Emacs</b></summary>
+
+```elisp
+;; packages.el
+(package! codepilot
+  :recipe (:host github :repo "ludvb/codepilot.el" :files ("*.el")))
+```
+
+```elisp
+;; config.el
+(use-package! codepilot
+  :hook ((prog-mode . codepilot-mode)
+         (text-mode . codepilot-mode))
+
+  :bind (:map evil-insert-state-map
+              ("M-j" . 'codepilot-accept-line)
+              ("M-l" . 'codepilot-accept-char)
+              ("M-w" . 'codepilot-accept-word)
+              ("M-<return>" . 'codepilot-accept-all)
+              ("M-J" . 'codepilot-complete-next)
+              ("M-K" . 'codepilot-complete-previous))
+
+  :config
+  ;; For llama.cpp backend:
+  (require 'codepilot-llamacpp)
+  (setq codepilot-backend 'llamacpp)
+
+  ;; For Ollama backend:
+  (require 'codepilot-ollama)
+  (require 'codepilot-ollama-server)
+  (setq codepilot-backend 'ollama)
+  (codepilot-ollama-start))
+```
+
+</details>
+
 
 ### Backends
 
