@@ -10,14 +10,9 @@
   "Group for ollama related variables."
   :group 'codepilot)
 
-(defcustom codepilot-ollama-hostname "localhost"
-  "Hostname of the ollama server."
+(defcustom codepilot-ollama-address "http://localhost:11434"
+  "Address to the Ollama API server."
   :type 'string
-  :group 'codepilot-ollama)
-
-(defcustom codepilot-ollama-port 11434
-  "Port of the ollama server."
-  :type 'integer
   :group 'codepilot-ollama)
 
 (defcustom codepilot-ollama-model "deepseek-coder:6.7b-base"
@@ -36,11 +31,7 @@
   :group 'codepilot-llamacpp)
 
 (defun codepilot-ollama--get-endpoint ()
-  (concat "http://"
-          codepilot-ollama-hostname
-          ":"
-          (number-to-string codepilot-ollama-port)
-          "/api/generate"))
+  (concat codepilot-ollama-address "/api/generate"))
 
 (cl-defun codepilot-ollama--request-data (prompt &key (stream t))
   "Generates the data to send to the ollama server."

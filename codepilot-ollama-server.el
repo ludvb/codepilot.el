@@ -1,6 +1,7 @@
 ;;; codepilot-ollama-server.el --- Utilities for starting ollama from emacs -*- lexical-binding: t; -*-
 
 (require 'subr-x)
+(require 'url-parse)
 (require 'codepilot-common)
 (require 'codepilot-ollama)
 
@@ -61,11 +62,12 @@
 (defun codepilot-ollama-start ()
   "Starts ollama server (unless already running)"
   (interactive)
-  (if (not (and (member codepilot-ollama-hostname '("localhost" "127.0.0.1" "::1"))
+  (if (not (and (member (url-host (url-generic-parse-url codepilot-ollama-address))
+                        '("localhost" "127.0.0.1" "::1"))
                 codepilot-ollama-server-command))
       (codepilot-log
        'warning
-       (concat "Either `codepilot-ollama-hostname' is not a loopback address"
+       (concat "Either `codepilot-ollama-address' is not a loopback address"
                " or `codepilot-ollama-server-command' is `nil'."
                " Won't start ollama server."))
     (unless codepilot-ollama-process-ping-timer

@@ -11,14 +11,9 @@
   "Customization options for llama.cpp."
   :group 'codepilot)
 
-(defcustom codepilot-llamacpp-hostname "localhost"
-  "Hostname of the llama.cpp server."
+(defcustom codepilot-llamacpp-address "http://localhost:8080"
+  "Address to the llama.cpp API server."
   :type 'string
-  :group 'codepilot-llamacpp)
-
-(defcustom codepilot-llamacpp-port 8080
-  "Port of the llama.cpp server."
-  :type 'integer
   :group 'codepilot-llamacpp)
 
 (defcustom codepilot-llamacpp-stream t
@@ -40,11 +35,7 @@ since codepilot will cancel the request after receiving
   :group 'codepilot-llamacpp)
 
 (defun codepilot-llamacpp--get-endpoint ()
-  (concat "http://"
-          codepilot-llamacpp-hostname
-          ":"
-          (number-to-string codepilot-llamacpp-port)
-          "/v1/completions"))
+  (concat codepilot-llamacpp-address "/v1/completions"))
 
 (cl-defun codepilot-llamacpp--request-data (prompt)
   "Generates the data to send to the llama.cpp server."

@@ -42,14 +42,12 @@ Codepilot.el provides AI-based code completion for emacs in a similar way to [co
   ;; For llama.cpp backend:
   (require 'codepilot-llamacpp)
   (setq codepilot-backend 'llamacpp)
-  (setq codepilot-llamacpp-hostname "localhost")
-  (setq codepilot-llamacpp-port 8080)
+  (setq codepilot-llamacpp-address "http://localhost:8080")
 
   ;; For Ollama backend:
   (require 'codepilot-ollama)
   (setq codepilot-backend 'ollama)
-  (setq codepilot-ollama-hostname "localhost")
-  (setq codepilot-ollama-port 11434)
+  (setq codepilot-ollama-address "http://localhost:11434")")
   ;; Optionally, start Ollama server from emacs:
   (require 'codepilot-ollama-server)
   (codepilot-ollama-start))
@@ -84,14 +82,12 @@ Codepilot.el provides AI-based code completion for emacs in a similar way to [co
   ;; For llama.cpp backend:
   (require 'codepilot-llamacpp)
   (setq codepilot-backend 'llamacpp)
-  (setq codepilot-llamacpp-hostname "localhost")
-  (setq codepilot-llamacpp-port 8080)
+  (setq codepilot-llamacpp-address "http://localhost:8080")
 
   ;; For Ollama backend:
   (require 'codepilot-ollama)
   (setq codepilot-backend 'ollama)
-  (setq codepilot-ollama-hostname "localhost")
-  (setq codepilot-ollama-port 11434)
+  (setq codepilot-ollama-address "http://localhost:11434")")
   ;; Optionally, start Ollama server from emacs:
   (require 'codepilot-ollama-server)
   (codepilot-ollama-start))
